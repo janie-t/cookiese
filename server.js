@@ -13,19 +13,25 @@ app.use(session({
 }))
 
 app.use(function(req, res, next){
-  req.session.name = 'Janie'
   next()
 })
 
-app.get('/login', function(req, res, next){
+app.get('/', function(req, res, next){
+  req.session.name = 'Janie'
   const name = req.session.name
-  res.send(`Kia ora ${name}, welcome back`)
+  res.send(`Kia ora ${name}, welcome to this amazing app`)
+})
+
+app.get('/about', function(req, res, next){
+  const name = req.session.name
+  const about = `Kia ora, ${name}, this app is about cookies and how to destroy them.`
+  res.send(about)
 })
 
 app.get('/logout', function(req, res, next){
   req.session.destroy(function(err){
   })
-  res.send('Ka kite, you have been logged out.')
+  res.send('Ka kite, you have been logged out, and we hope the cookie is destroyed.')
 })
 
 
